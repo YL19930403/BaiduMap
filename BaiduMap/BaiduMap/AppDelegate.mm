@@ -7,16 +7,35 @@
 //
 
 #import "AppDelegate.h"
+#import <BaiduMapAPI/BMapKit.h>
+
+#define KEY @"e9TeeTpu751GZKQ3URHhGDVg"
 
 @interface AppDelegate ()
+@property(nonatomic,strong)BMKMapManager * mapManager ;
+
 
 @end
 
 @implementation AppDelegate
 
 
+- (BMKMapManager *)mapManager
+{
+    if (!_mapManager) {
+        _mapManager = [[BMKMapManager alloc] init];
+        BOOL ret = [_mapManager start:KEY generalDelegate:nil];
+        if (!ret) {
+            NSLog(@"manager start failed!");
+        }else{
+            NSLog(@"授权成功");
+        }
+    }
+    return _mapManager ;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [self mapManager];
     return YES;
 }
 
